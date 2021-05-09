@@ -24,4 +24,17 @@ let addPlace = (name, addressID) => {
     .catch(e => console.log(e)); 
 };
 
-module.exports = {addAddress, addPlace};
+let returnPlaces = () => {
+    // Return all places
+    return pool.query("SELECT p.name, a.street, a.city, a.state, a.postalcode, \
+        json_agg(json_build_object('comment', r.comment, 'rating', r.rating, 'user',u.username)) AS reviews \
+        FROM mynearbyplaces.places p \
+        INNER JOIN mynearbyplaces.address a on p.addressid = a.id \
+        INNER JOIN mynearbyplaces.review r ON p.id = r.placeid \
+        LEFT JOIN mynearbyplaces.users u ON r.userid = u.id \
+        WHERE p.name LIKE '%%' AND a.street LIKE '%%' \
+        GROUP BY p.name, a.street, a.city, a.state, a.postalcode")
+    .then(() => {console.log("Places returned"); return result.rows;})
+};
+
+module.exports = {addAddress, addPlace, returnPlaces };

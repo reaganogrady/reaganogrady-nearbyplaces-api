@@ -21,4 +21,11 @@ app.post('/place', (request, response) => {
         .catch(e => response.status(500).send('There was an error'));
 });
 
+app.get('/places', (request, response) => {
+    db.returnPlaces()
+    .then(places => response.json(places))
+    .catch(e => {console.log(e); response.status(500).send('There was an error in finding the places.')});  
+});
+
+
 app.listen(port, () => console.log('Listening on port ' + port));
