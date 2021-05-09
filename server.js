@@ -1,8 +1,10 @@
+var cors = require('cors');
 const express = require('express');
 
 const app = express();
 const port = process.env.PORT || 4002;
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (request, response) => {
     response.send("mynearbyplaces server side");
