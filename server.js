@@ -80,7 +80,7 @@ app.get('/search/:name?/:street?/:city?/:state?/:postalcode?', (request, respons
         .catch(e => {console.log(e); response.status(500).send('There was an error in finding the places.')});  
 });
 
-app.post('/login/:username/:pass', (request, response) => {  
+app.get('/login/:username/:pass', (request, response) => {  
     let username = request.params.username;
     let password = request.params.pass; 
     
