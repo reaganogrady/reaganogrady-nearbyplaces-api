@@ -32,7 +32,6 @@ let returnPlaces = () => {
         LEFT JOIN mynearbyplaces.address a on p.addressid = a.id \
         LEFT JOIN mynearbyplaces.review r ON p.id = r.placeid \
         LEFT JOIN mynearbyplaces.users u ON r.userid = u.id \
-        WHERE p.place LIKE '%%' AND a.street LIKE '%%' \
         GROUP BY p.place, a.street, a.city, a.postalcode, a.state")
     .then(result => {console.log("Places returned"); return result.rows;})
 };
