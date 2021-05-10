@@ -95,5 +95,10 @@ let search = (name, street, city, state, postalcode) => {
     .then(result => result.rows);
 };
 
-
-module.exports = { addAddress, addPlace, returnPlaces, getPlace, addReview, returnPlaceID, returnUserID, addUser, search };
+let login = (username, pass) => {
+    // Return true if the username and pasword are correct and in the system
+    return pool.query("SELECT * FROM mynearbyplaces.users WHERE username = $1 AND password = $2",
+    [username, pass])
+    .then(result => result.rows.length == 1);
+}
+module.exports = { login, addAddress, addPlace, returnPlaces, getPlace, addReview, returnPlaceID, returnUserID, addUser, search };
