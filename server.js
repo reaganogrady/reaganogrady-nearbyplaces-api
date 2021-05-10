@@ -80,4 +80,16 @@ app.get('/search/:name?/:street?/:city?/:state?/:postalcode?', (request, respons
         .catch(e => {console.log(e); response.status(500).send('There was an error in finding the places.')});  
 });
 
+app.post('/login/:username/:pass', (request, response) => {  
+    let username = request.params.username;
+    let password = request.params.pass; 
+    
+    db.login(username, password)    
+    .then(result => {
+      response.json({success: result})
+    })
+    .catch(e => {console.log(e); response.status(500).send('There was an error in validating the user.')});
+    
+  });
+
 app.listen(port, () => console.log('Listening on port ' + port));
