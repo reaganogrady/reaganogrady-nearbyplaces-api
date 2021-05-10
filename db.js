@@ -87,10 +87,10 @@ let search = (name, street, city, state, postalcode) => {
         LEFT JOIN mynearbyplaces.review r ON p.id = r.placeid \
         LEFT JOIN mynearbyplaces.users u ON r.userid = u.id \
         WHERE (lower(p.place) like lower('${!name ? '%%' : `%${name}%`}')) 
-        and (lower(a.street) like lower('${!street ? '%%' : `%${street}%`}')) 
-        and (lower(a.city) like lower('${!city ? '%%' : `%${city}%`}')) 
-        and (lower(a.state) like lower('${!state ? '%%' : `%${state}%`}')) 
-        and (cast(a.postalcode as text) like '${!postalcode ? '%%' : `%${postalcode}%`}') 
+        OR (lower(a.street) like lower('${!street ? '%%' : `%${street}%`}')) 
+        OR (lower(a.city) like lower('${!city ? '%%' : `%${city}%`}')) 
+        OR (lower(a.state) like lower('${!state ? '%%' : `%${state}%`}')) 
+        OR (cast(a.postalcode as text) like '${!postalcode ? '%%' : `%${postalcode}%`}') 
         GROUP BY p.place, a.street , a.city , a.state , a.postalcode`)
     .then(result => result.rows);
 };
